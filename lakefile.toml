@@ -1,0 +1,20 @@
+name = "FurtherToeplitzPositroids"
+version = "0.1.0"
+keywords = ["math"]
+defaultTargets = ["FurtherToeplitzPositroids"]
+
+[leanOptions]
+pp.unicode.fun = true
+relaxedAutoImplicit = false
+weak.linter.mathlibStandardSet = true
+maxSynthPendingDepth = 3
+
+[[require]]
+name = "PavingToeplitzPositroids"
+path = "../Paper_B"
+
+[[lean_lib]]
+name = "FurtherToeplitzPositroids"
+
+[[lean_lib]]
+name = "AlgebraicCombinatorics"

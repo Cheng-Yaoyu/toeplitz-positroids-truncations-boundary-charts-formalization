@@ -1,0 +1,8 @@
+/.lake/
+/build/
+*.olean
+*.ilean
+*.trace
+.DS_Store
+/tmp/
+/AIM-0009_further_progress.pdf

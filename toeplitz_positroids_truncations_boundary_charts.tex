@@ -1,0 +1,1072 @@
+\documentclass[11pt]{amsart}
+
+\usepackage[T1]{fontenc}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage[nameinlink,capitalise,noabbrev]{cleveref}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!55!black,
+  citecolor=green!40!black,
+  urlcolor=blue!60!black,
+  pdftitle={Truncations, Circuit Layers, and Quantum Boundary Charts for Totally Nonnegative Toeplitz Positroids},
+  pdfauthor={Yaoyu Cheng, Sixuan Gu, and Wei Qi},
+  pdfsubject={Totally nonnegative Toeplitz matrices and positroid support},
+  pdfkeywords={totally nonnegative Toeplitz matrix, positroid, matroid truncation, paving matroid, quantum boundary chart}
+}
+
+\setlist[enumerate]{label=(\roman*),leftmargin=2.2em}
+\setlist[itemize]{leftmargin=2.0em}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{question}[theorem]{Question}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\C}{\mathbb C}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\NN}{\mathbb Z_{\ge 0}}
+\newcommand{\Gr}{\operatorname{Gr}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\Tr}{\operatorname{Tr}}
+\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\Span}{\operatorname{span}}
+\newcommand{\adj}{\operatorname{adj}}
+\newcommand{\cB}{\mathcal B}
+\newcommand{\cH}{\mathcal H}
+\newcommand{\cZ}{\mathcal Z}
+\newcommand{\one}{\mathbf 1}
+\newcommand{\col}{\operatorname{col}}
+\newcommand{\TN}{\mathrm{TN}}
+\newcommand{\TP}{\mathrm{TP}}
+\newcommand{\dd}{\,\mathrm d}
+\newcommand{\qbinom}[2]{\genfrac{[}{]}{0pt}{}{#1}{#2}}
+
+\title[Toeplitz positroid truncations and charts]
+{Truncations, Circuit Layers, and Quantum Boundary Charts\\
+for Totally Nonnegative Toeplitz Positroids}
+
+\author{Yaoyu Cheng}
+\address{Faculty of Business Administration, The Chinese University of Hong Kong, Hong Kong, China}
+\email{yaoyucheng@link.cuhk.edu.cn}
+
+\author{Sixuan Gu}
+\address{Institute of Mathematical Sciences, The Chinese University of Hong Kong, Hong Kong, China}
+\email{sixuangu@link.cuhk.edu.cn}
+
+\author{Wei Qi}
+\address{Department of Physics, The Ohio State University, Columbus, OH 43210, USA}
+\email{qi.673@osu.edu}
+
+\date{August 28, 2026}
+
+\subjclass[2020]{Primary 15B48, 05B35; Secondary 14M15, 15A15, 05E05}
+\keywords{Totally nonnegative Toeplitz matrix, positroid, matroid truncation, paving matroid, consecutive minor, quantum binomial coefficient, Schur polynomial, inverse function theorem}
+
+\begin{document}
+
+\begin{abstract}
+The AIM Toeplitz support problem asks which positroid cells contain a finite all-minor totally nonnegative Toeplitz matrix.  Earlier work of the authors gives the complete answer in ranks two and three and in the paving sector of every rank.  We establish the next structural layers of the problem.
+
+Strictly totally positive row compression realizes every matroid truncation of an all-minor totally nonnegative matrix.  Positive consecutive-minor interpolation then shows that, whenever all $r$-subsets of columns are independent, the circuits of size $r+1$ are precisely the $(r+1)$-subsets contained in ordinary interval rank-$r$ flats meeting pairwise in at most $r-1$ elements.  For Toeplitz matrices we also prove an arbitrary-rank endpoint-parallel theorem and deduce that every rank-three truncation is again all-minor totally nonnegative Toeplitz representable.
+
+Our main analytic construction is a quantum-binomial boundary chart around a Grassmannian root-of-unity Toeplitz point with coefficients
+\[
+ b_t=\prod_{\ell=1}^{r-1}\frac{\sin((t+\ell)\pi/(d+r))}{\sin(\ell\pi/(d+r))},
+ \qquad m=r+1.
+\]
+The associated banded $m\times(d+m)$ Toeplitz matrix is totally nonnegative, every structurally allowed minor of order at most $m-1$ is positive, and all interior consecutive maximal minors vanish.  We determine its exact rectangular minor support and prove that the transverse consecutive-minor Jacobian is an explicit symmetric positive-definite Toeplitz autocorrelation matrix.  The inverse function theorem then realizes every interior zero pattern and yields a complete arbitrary-rank classification of Toeplitz positroids that become paving after their loops are deleted, including one-sided and two-sided loop boundaries.  We also give exact lattice-path support formulas for finite Edrei sections and two-sided finite-band symbols, and isolate nonuniform erections in rank at least four as the remaining core of the AIM problem.
+\end{abstract}
+
+\maketitle
+\section{Introduction}
+
+Let
+\[
+ T_m(a)=\bigl(a_{j-i}\bigr)_{1\le i\le m,\ 1\le j\le n}
+\]
+be a finite real Toeplitz matrix.  The AIM problem asks for the possible zero--nonzero patterns of minors of a totally nonnegative Toeplitz matrix, or, at the maximal-minor level, for the positroid cells that meet the Toeplitz locus \cite{AIM}.  The distinction between Grassmannian nonnegativity and all-minor total nonnegativity is essential: throughout this paper a \emph{Toeplitz positroid} is represented by a full-row-rank Toeplitz matrix whose minors of every order are nonnegative.
+
+Two companion papers settle substantial parts of the problem.  The first classifies all Toeplitz positroids in ranks two and three, including loops, endpoint parallel classes, and rank-two interval flats \cite{CGQlow}.  The second classifies the paving sector in every rank: the zero set of the consecutive maximal minors is arbitrary and proper, and its maximal runs expand to ordinary interval hyperplanes \cite{CGQpaving}.  It also proves the positive interpolation identity that will be our main input.
+
+The root-of-unity Toeplitz point used below belongs to the Grassmannian part of Rietsch's description of total positivity and quantum cohomology \cite{RietschGrassmannian,Rietsch}.  Recent work of Chung-Halpern and Rietsch places the same centered-root parametrization in its current Grassmannian and asymptotic context \cite{ChungHalpernRietsch}.  Toeplitz-minor identities in terms of skew Schur specializations were developed systematically by Garc\'ia-Garc\'ia and Tierz \cite{GarciaTierz}.  Our contribution is support-theoretic and transverse to these parametrizations: we determine the exact lower-minor support of the relevant rectangular section, compute its consecutive-minor Jacobian, and use the resulting boundary chart to classify every loop-paving stratum.
+
+The purpose of the present paper is not to claim a complete solution of the AIM problem.  Rather, it gives a rigorous next layer and narrows the unsolved part to a precise class of higher-rank erections.  The principal new conclusions are the following.
+
+\begin{theorem}[First-circuit layer; informal form]\label{thm:intro-first-circuit}
+Let $A$ be an all-minor totally nonnegative matrix, and suppose every $r$-subset of its columns is independent.  Then the circuits of size $r+1$ are exactly the $(r+1)$-subsets contained in maximal ordinary intervals $H_1,\ldots,H_s$, each of rank $r$, with
+\[
+ |H_\alpha\cap H_\beta|\le r-1\qquad(\alpha\ne\beta).
+\]
+Moreover, every such circuit is a positive sum of all consecutive alternating circuits in its span.
+\end{theorem}
+
+The theorem is independent of Toeplitz structure.  It follows by strictly totally positive row compression to rank $r+1$ and the paving interpolation theorem.  One consequence is that the rank-$(r+1)$ truncation of the column matroid has a totally nonnegative Toeplitz realization, even when the original matrix is not Toeplitz.
+
+The new Toeplitz-specific boundary chart is the following.
+
+\begin{theorem}[Quantum-binomial boundary chart; informal form]\label{thm:intro-qchart}
+Fix $m=r+1\ge2$ and $d\ge2$.  There is a positive band-supported coefficient vector $b^{(0)}=(b_0^{(0)},\ldots,b_d^{(0)})$ such that the banded Toeplitz matrix
+\[
+ C_{m,d}(b)=\bigl(b_{j-i}\bigr)_{0\le i\le r,\ 0\le j\le d+r},
+ \qquad b_k=0\ \text{for }k\notin[0,d],
+\]
+has all structurally allowed minors of order at most $m-1$ positive, while its interior consecutive maximal minors vanish.  Fixing $b_0=b_d=1$, the map
+\[
+ (b_1,\ldots,b_{d-1})\longmapsto(D_1,\ldots,D_{d-1})
+\]
+has symmetric positive-definite Jacobian at $b^{(0)}$.  Hence every sufficiently small vector in $[0,\infty)^{d-1}$ occurs as the interior consecutive-minor vector of an all-minor totally nonnegative banded Toeplitz matrix.
+\end{theorem}
+
+The base point is the Grassmannian root-of-unity Toeplitz point from \cite{RietschGrassmannian,Rietsch}, viewed in the rectangular band section relevant to the support problem.  It has the explicit coefficients
+\[
+ b_t^{(0)}=\prod_{\ell=1}^{r-1}
+ \frac{\sin((t+\ell)\theta)}{\sin(\ell\theta)},
+ \qquad \theta=\frac{\pi}{d+r}.
+\]
+The same numbers are simultaneously complete homogeneous functions in an $r$-letter root-of-unity alphabet and elementary symmetric functions in a $d$-letter root-of-unity alphabet.  The elementary realization proves total nonnegativity through Schur positivity in the level alcove; the complete-homogeneous realization gives a constant recurrence kernel.  The new point here is the exact rectangular support theorem and the transverse autocorrelation Jacobian, which together produce the local boundary chart.
+
+Our main combinatorial application extends the arbitrary-rank paving classification across all loop boundaries.
+
+\begin{theorem}[Loop-paving classification; informal form]\label{thm:intro-loop-paving}
+Let $M$ be a rank-$m$ matroid on a linearly ordered ground set, and suppose that deleting its loops gives a paving matroid.  Then $M$ has an all-minor totally nonnegative Toeplitz representation if and only if
+\begin{enumerate}
+\item its loops form a prefix and a suffix;
+\item in the nonloop interval, the dependent hyperplanes are proper ordinary intervals meeting pairwise in at most $m-2$ elements;
+\item if a loop prefix is present, no such interval contains the first nonloop element, and if a loop suffix is present, no such interval contains the last nonloop element.
+\end{enumerate}
+Every compatible collection is realizable.
+\end{theorem}
+
+For no loops this is the paving theorem of \cite{CGQpaving}.  With two loop boundaries and $m=3$, it specializes to the simple part of the sine construction in \cite{CGQlow}.  The quantum-binomial chart proves all ranks and all four choices of loop boundary.
+
+A Lean~4 formalization accompanies the paper as supplementary material.  It checks the statements proved in \Cref{sec:completion,sec:compression,sec:low-skeleton,sec:qpoint,sec:loop-paving,sec:edrei}, including the original-matrix circuit transfer and the exact positive-definite Jacobian.  The conjectures and question in \Cref{sec:remaining} are deliberately excluded from the theorem API.
+
+The rest of the paper is organized as follows.  \Cref{sec:completion} recalls the interpolation input in the precise form needed here.  \Cref{sec:compression} develops positive row compression, truncations, and the first-circuit theorem.  \Cref{sec:low-skeleton} proves the arbitrary-rank endpoint-parallel theorem and the closure of the rank-three truncation.  \Cref{sec:qpoint} develops the quantum-binomial boundary chart and its positive-definite Jacobian.  \Cref{sec:loop-paving} proves the loop-paving classification.  \Cref{sec:edrei} records two exact lattice-path families.  \Cref{sec:remaining} describes the remaining rank-four-and-higher obstruction.
+
+\section{Positive completion from consecutive maximal minors}\label{sec:completion}
+
+We begin with a form of the positive interpolation theorem that does not assume the maximal minors are already nonnegative.
+
+For $J=\{j_1<\cdots<j_m\}\subset[n]$, write
+\[
+ \mathcal A(J)=[j_1,j_m-m+1]\cap\Z,
+ \qquad C_t=[t,t+m-1],
+ \qquad D_t(A)=\det A[:,C_t].
+\]
+
+\begin{lemma}[Positive completion lemma]\label{lem:positive-completion}
+Let $A\in\R^{m\times n}$.  Assume that
+\begin{enumerate}
+\item every minor of $A$ of order at most $m-1$ is nonnegative;
+\item every $(m-1)$-subset of columns is independent;
+\item $D_t(A)\ge0$ for $1\le t\le n-m+1$.
+\end{enumerate}
+Then every maximal minor of $A$ is nonnegative.  More precisely, for every $J=\{j_1<\cdots<j_m\}$ there are coefficients $c_{J,t}>0$ such that
+\begin{equation}\label{eq:completion-expansion}
+ \det A[:,J]=\sum_{t=j_1}^{j_m-m+1}c_{J,t}D_t(A).
+\end{equation}
+Consequently,
+\begin{equation}\label{eq:completion-support}
+ \det A[:,J]=0
+ \quad\Longleftrightarrow\quad
+ D_t(A)=0\ \text{for all }t\in\mathcal A(J).
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Choose an $(m-1)\times m$ matrix $Q$ all of whose maximal minors are positive; one may use the explicit matrix in \cite[Lemma~7]{CGQpaving}.  Complete $Q$ to an invertible $m\times m$ matrix $P$ with positive determinant, and put $B=QA$.  For every $(m-1)$-subset $I$ of columns, Cauchy--Binet gives
+\[
+ \det B[:,I]=\sum_{R\in\binom{[m]}{m-1}}
+ \det Q[:,R]\det A[R,I].
+\]
+Every summand is nonnegative.  Since $A[:,I]$ has rank $m-1$, at least one row minor is positive, and therefore every maximal minor of $B$ is strictly positive.
+
+After rescaling the last row of $PA$ if necessary, we may assume $\det P=1$.  The positive consecutive-minor interpolation theorem \cite[Theorem~3]{CGQpaving}, applied to the adjacent-rank flag formed by the first $m-1$ rows of $PA$, gives \eqref{eq:completion-expansion}.  The coefficients are strictly positive, and the consecutive maximal minors of $PA$ equal those of $A$.  The nonnegative sum vanishes exactly when every anchor term vanishes, proving \eqref{eq:completion-support}.
+\end{proof}
+
+\begin{remark}\label{rem:weaker-than-tn}
+The hypotheses of \Cref{lem:positive-completion} are deliberately one order weaker than total nonnegativity: lower-order total nonnegativity and nonnegative consecutive maximal minors force all remaining maximal minors.  This is the form needed for inverse-function constructions on banded coefficient slices.
+\end{remark}
+
+\section{Positive row compression and the first circuit layer}\label{sec:compression}
+
+\subsection{Strictly positive compressions realize matroid truncations}
+
+For a rank-$m$ matroid $M$, denote its rank-$k$ truncation by $\Tr_kM$; its rank function is
+\[
+ r_{\Tr_kM}(X)=\min\{k,r_M(X)\}.
+\]
+
+\begin{proposition}[Positive compression]\label{prop:positive-compression}
+Let $A\in\R^{m\times n}$ be totally nonnegative, and let $1\le k\le m$.  Choose a strictly totally positive matrix $P\in\R^{k\times m}$.  Then $B=PA$ is totally nonnegative and, for every set $J$ of columns,
+\begin{equation}\label{eq:rank-compression}
+ \rank B[:,J]=\min\{k,\rank A[:,J]\}.
+\end{equation}
+Consequently, the column matroid of $B$ is $\Tr_kM(A)$.
+\end{proposition}
+
+\begin{proof}
+Total nonnegativity of $B$ follows from Cauchy--Binet.  Let
+\[
+ s=\min\{k,\rank A[:,J]\}.
+\]
+Choose $s$ independent columns $J'\subseteq J$.  Some $s\times s$ row minor $\det A[R,J']$ is positive, while all such row minors are nonnegative.  If $S$ is any $s$-subset of the rows of $P$, then
+\[
+ \det B[S,J']
+ =\sum_{R\in\binom{[m]}s}\det P[S,R]\det A[R,J']>0,
+\]
+because all minors of $P$ are positive and at least one minor of $A[:,J']$ is positive.  Hence $\rank B[:,J]\ge s$.  The reverse inequality is immediate from $B=PA$ and the number of rows of $B$.
+\end{proof}
+
+\begin{remark}
+A strictly totally positive rectangular matrix exists in every size; for example, a generalized Vandermonde matrix formed from positive increasing nodes is strictly totally positive.  The proposition is special to the all-minor setting.  Truncations of general positroids need not be positroids \cite{Bonin}, because a Grassmannian representative controls only maximal minors, whereas the proof above uses every order.
+\end{remark}
+
+\begin{corollary}\label{cor:tn-truncation}
+The class of matroids represented by all-minor totally nonnegative matrices is closed under truncation.
+\end{corollary}
+
+\subsection{The first nonuniform layer}
+
+Fix $1\le r<m$, and suppose every $r$-subset of columns of $A$ is independent.  Define the consecutive rank-defect set
+\begin{equation}\label{eq:Zr}
+ Z_r(A)=\bigl\{t\in[n-r]:\rank A[:,[t,t+r]]\le r\bigr\}.
+\end{equation}
+
+\begin{theorem}[First-circuit interval theorem]\label{thm:first-circuit}
+Let $A\in\R^{m\times n}$ be totally nonnegative of rank at least $r+1$, and assume every $r$-subset of columns is independent.  Then $Z_r(A)$ is a proper subset of $[n-r]$.  Write its maximal runs as
+\[
+ Z_r(A)=[u_1,v_1]\sqcup\cdots\sqcup[u_s,v_s]
+\]
+and put
+\begin{equation}\label{eq:first-layer-H}
+ H_\alpha=[u_\alpha,v_\alpha+r].
+\end{equation}
+Then:
+\begin{enumerate}
+\item an $(r+1)$-subset $J=\{j_1<\cdots<j_{r+1}\}$ is dependent in $A$ if and only if
+\begin{equation}\label{eq:first-layer-support}
+ [j_1,j_{r+1}-r]\subseteq Z_r(A),
+\end{equation}
+or equivalently $J\subseteq H_\alpha$ for some $\alpha$;
+\item the sets $H_\alpha$ are precisely the rank-$r$ flats containing at least $r+1$ elements and all of whose $r$-subsets are independent;
+\item distinct such flats satisfy
+\begin{equation}\label{eq:first-layer-overlap}
+ |H_\alpha\cap H_\beta|\le r-1\qquad(\alpha\ne\beta).
+\end{equation}
+\end{enumerate}
+Thus the rank-$(r+1)$ truncation of $M(A)$ is a paving interval positroid in the displayed linear order.
+\end{theorem}
+
+\begin{proof}
+Apply \Cref{prop:positive-compression} with $k=r+1$, obtaining a totally nonnegative $(r+1)\times n$ matrix $B$ whose column matroid is $\Tr_{r+1}M(A)$.  Every $r$-subset of columns of $B$ is independent.  The interval-hyperplane support theorem of \cite[Theorem~10]{CGQpaving}, or equivalently \Cref{lem:positive-completion} and its standard zero-run argument, gives
+\[
+ \det B[:,J]=0
+ \quad\Longleftrightarrow\quad
+ \det B[:,[t,t+r]]=0\ \text{for every }t\in[j_1,j_{r+1}-r].
+\]
+By \eqref{eq:rank-compression}, an $(r+1)$-subset is dependent in $B$ exactly when it is dependent in $A$.  This proves \eqref{eq:first-layer-support}.  Since $A$ has rank at least $r+1$, not every $(r+1)$-subset is dependent, so $Z_r(A)$ is proper.
+
+The zero-run argument gives the interval description and \eqref{eq:first-layer-overlap}.  We only need to check that each $H_\alpha$ is a flat in the original matroid, not merely in the truncation.  Every $r$-subset of $H_\alpha$ is independent, and every $(r+1)$-subset is dependent, so $r_A(H_\alpha)=r$.
+
+Let $I$ be any $r$-subset of $H_\alpha$.  It is independent and spans $H_\alpha$.  Suppose that $x\notin H_\alpha$ belonged to $\operatorname{cl}_A(H_\alpha)$.  Then $I\cup\{x\}$ would be dependent and hence, by \eqref{eq:first-layer-support}, contained in some enlarged zero-run interval $H_\beta$.  The set $I$ has $r$ elements and is contained in both $H_\alpha$ and $H_\beta$.  The intersection bound \eqref{eq:first-layer-overlap} forces $\beta=\alpha$, and then $x\in H_\alpha$, a contradiction.  Thus no exterior element belongs to the closure, and $H_\alpha$ is a rank-$r$ flat of $A$.
+\end{proof}
+
+\begin{corollary}[Toeplitz realization of the first layer]\label{cor:first-layer-toeplitz}
+Under the hypotheses of \Cref{thm:first-circuit}, the truncation $\Tr_{r+1}M(A)$ has an all-minor totally nonnegative Toeplitz representation.  Its support is determined by $Z_r(A)$, and every proper subset of $[n-r]$ occurs for some rank-$(r+1)$ Toeplitz realization.
+\end{corollary}
+
+\begin{proof}
+Apply the arbitrary-rank paving realization theorem \cite[Theorem~1]{CGQpaving} to the interval hyperplanes in \Cref{thm:first-circuit}.
+\end{proof}
+
+The interpolation theorem also retains the oriented circuit structure.
+
+\begin{theorem}[Positive subdivision of first-layer circuits]\label{thm:first-layer-circuits}
+In the setting of \Cref{thm:first-circuit}, orient every $(r+1)$-circuit alternately in the natural order.  If $J=\{j_1<\cdots<j_{r+1}\}$ is a circuit, then there are positive numbers $c_{J,t}$ such that
+\begin{equation}\label{eq:first-layer-circuit-subdivision}
+ c_J=\sum_{t=j_1}^{j_{r+1}-r}c_{J,t}\,c_{[t,t+r]},
+ \qquad c_{J,t}>0,
+\end{equation}
+where each consecutive set $[t,t+r]$ in the sum is itself a circuit.
+\end{theorem}
+
+\begin{proof}
+Compress to $B$ as above, and then apply the positive codimension-one projection used in \Cref{lem:positive-completion}.  The resulting $r\times n$ top block $U$ has every maximal minor positive.  The circuit-subdivision identity of \cite[Corollary~5]{CGQpaving} gives \eqref{eq:first-layer-circuit-subdivision} for the alternating circuit vectors of $U$.
+
+Because $J$ is dependent in $B$, its anchor interval lies in $Z_r(A)$ by \Cref{thm:first-circuit}; hence every consecutive anchor in the sum is dependent in both $B$ and $A$.  It remains to transfer the projection-normalized vectors back to $A$.
+
+Let $f$ be any row of $A$, and append $f$ to $U$.  The resulting $(r+1)\times n$ matrix is a row transform of $A$.  Since $J$ is dependent in $A$, its selected determinant in this appended matrix is zero.  Laplace expansion along the appended row says precisely that $f$ pairs to zero with the alternating circuit vector $c_J$ of $U$.  This holds for every row $f$ of $A$, so $Ac_J=0$.  The same argument applies to every consecutive anchor.  Every one of these sets has rank exactly $r$; hence the relevant kernels are one-dimensional, and the nonzero alternating vectors obtained from $U$ are the oriented circuits of $A$.  Thus \eqref{eq:first-layer-circuit-subdivision} is an identity among the original oriented circuits.
+\end{proof}
+
+\section{The low skeleton in arbitrary rank}\label{sec:low-skeleton}
+
+We now exploit Toeplitz structure.  The first step is a rectangular version of the finite $\TN_2$ criterion.
+
+\subsection{A general Toeplitz \texorpdfstring{$\TN_2$}{TN2} criterion}
+
+\begin{proposition}[Rectangular Toeplitz $\TN_2$ criterion]\label{prop:general-TN2}
+Let $m,n\ge2$, and let
+\[
+ A=(a_{j-i})_{1\le i\le m,\ 1\le j\le n}.
+\]
+Then $A$ is $\TN_2$ if and only if:
+\begin{enumerate}
+\item $a_k\ge0$ for every displayed index $1-m\le k\le n-1$;
+\item the positive support $\{k:a_k>0\}$ is an integer interval;
+\item at every interior point of that interval,
+\begin{equation}\label{eq:logconcavity}
+ a_k^2\ge a_{k-1}a_{k+1}.
+\end{equation}
+\end{enumerate}
+For a nonstructural $2\times2$ minor with row distance $h$ and column distance $\ell$, equality holds if and only if all coefficient ratios across the intervening index interval are equal.
+\end{proposition}
+
+\begin{proof}
+Necessity of coefficientwise nonnegativity is immediate.  Suppose $a_p,a_q>0$, $p<q$, and every coefficient strictly between them is zero.  Then $q-p\ge2$.  Choose
+\[
+ 1\le h\le m-1,\qquad 1\le\ell\le n-1,
+ \qquad h+\ell=q-p.
+\]
+There are row and column positions for which the corresponding $2\times2$ Toeplitz minor is
+\[
+ \det\begin{pmatrix}
+ a_{p+h}&a_q\\
+ a_p&a_{p+\ell}
+ \end{pmatrix}=-a_pa_q<0.
+\]
+Indeed, the placement inequalities follow from $1-m\le p<q\le n-1$.  Thus the positive support is an interval.  Adjacent $2\times2$ minors give \eqref{eq:logconcavity}.
+
+Conversely, on the positive support put $\rho_k=a_k/a_{k-1}$.  Log-concavity is equivalent to weak decrease of $\rho_k$.  A general $2\times2$ minor has the form
+\begin{equation}\label{eq:general-2minor}
+ a_xa_{x+\ell-h}-a_{x+\ell}a_{x-h}.
+\end{equation}
+If the second product is zero, \eqref{eq:general-2minor} is nonnegative.  If it is positive, interval support makes all four factors positive, and division reduces the desired inequality to
+\[
+ \frac{a_x}{a_{x-h}}\ge\frac{a_{x+\ell}}{a_{x+\ell-h}}.
+\]
+The two sides are products of $h$ coefficient ratios, and every ratio on the left lies weakly to the left of the corresponding ratio on the right.  Equality forces equality in every comparison.  Monotonicity then makes all ratios from the leftmost to the rightmost index equal, and the converse is immediate.
+\end{proof}
+
+\begin{corollary}\label{cor:loops-interval}
+The nonzero columns of a totally nonnegative Toeplitz matrix form an ordinary interval.  Equivalently, its loops form a prefix and a suffix.
+\end{corollary}
+
+\subsection{Parallel classes occur only at the ends}
+
+The rank-three endpoint theorem from \cite{CGQlow} persists in every ambient rank at least three.
+
+\begin{theorem}[Arbitrary-rank endpoint-parallel theorem]\label{thm:endpoint-parallel}
+Let $m\ge3$, and let $A=T_m(a)$ be full-row-rank and totally nonnegative.  Among the nonloop columns, every nontrivial parallel class is either the initial class or the terminal class.  In particular, there are at most two nontrivial parallel classes.
+
+If a loop prefix is nonempty, the initial nonloop class is a singleton.  If a loop suffix is nonempty, the terminal nonloop class is a singleton.
+\end{theorem}
+
+\begin{proof}
+After deleting the loop prefix and suffix, every column is nonzero.  Apply \Cref{thm:first-circuit} with $r=1$: every parallel class is a consecutive interval.
+
+A class adjacent to a loop boundary is a singleton.  For example, if $c_{p-1}=0$ and $c_p\ne0$, then $c_p$ is a positive multiple of the first coordinate vector, whereas $c_{p+1}$ has a positive second coordinate and cannot be parallel to $c_p$.  The right endpoint is symmetric.
+
+Suppose, for a contradiction, that
+\[
+ c_p,c_{p+1},\ldots,c_q,
+ \qquad s=q-p+1\ge2,
+\]
+is a maximal parallel class with nonparallel nonzero neighbors on both sides.  Parallelism of consecutive Toeplitz shifts and interval support imply that there are $c>0$ and $\lambda>0$ such that
+\begin{equation}\label{eq:geometric-core}
+ a_{p-m+t}=c\lambda^t,
+ \qquad 0\le t\le m+s-2.
+\end{equation}
+Write the two exterior coefficients as
+\begin{equation}\label{eq:EF}
+ a_{p-m-1}=E\,c\lambda^{-1},
+ \qquad
+ a_q=F\,c\lambda^{m+s-1}.
+\end{equation}
+By \Cref{prop:general-TN2}, log-concavity at the two ends of the geometric run gives
+\[
+ 0\le E\le1,
+ \qquad 0\le F\le1.
+\]
+For any $2\le k\le m-1$, use rows $\{1,k,m\}$ and columns $\{p-1,p,q+1\}$.  Substitution of \eqref{eq:geometric-core}--\eqref{eq:EF} gives
+\begin{equation}\label{eq:endpoint-defect}
+ \det A[\{1,k,m\},\{p-1,p,q+1\}]
+ =-c^3\lambda^{2m+s-k-2}(1-E)(1-F).
+\end{equation}
+The right side is nonpositive, while total nonnegativity makes it nonnegative.  Hence $E=1$ or $F=1$.  If $E=1$, the geometric progression extends one coefficient to the left and $c_{p-1}$ is parallel to $c_p$.  If $F=1$, it extends one coefficient to the right and $c_{q+1}$ is parallel to $c_q$.  Either conclusion contradicts maximality of the internal class.
+\end{proof}
+
+\subsection{Endpoint protection and the rank-three truncation}
+
+Delete the loops and retain one representative from each parallel class; call the resulting ordered column configuration the \emph{simplification}.
+
+\begin{lemma}[Endpoint protection in arbitrary rank]\label{lem:endpoint-protection}
+Let $A=T_m(a)$ be full-row-rank and totally nonnegative with $m\ge3$.  In its simplification, the first element belongs to no rank-two flat containing at least three simplified elements if either a loop prefix is nonempty or the initial parallel class is nontrivial.  The analogous statement holds at the right endpoint.
+\end{lemma}
+
+\begin{proof}
+By \Cref{thm:first-circuit} with $r=2$, every rank-two flat containing at least three simplified elements is an ordinary interval.  It therefore suffices to prove that the first three simplified columns are independent.
+
+If loops occur on the left, the first three nonloop columns have first three coordinates
+\[
+ \begin{pmatrix}b_0&b_1&b_2\\0&b_0&b_1\\0&0&b_0\end{pmatrix},
+ \qquad b_0>0,
+\]
+so their $3\times3$ minor is $b_0^3>0$.
+
+Assume next that there are no left loops and that the initial parallel class is $c_1,\ldots,c_p$ with $p\ge2$.  Full row rank guarantees at least three simplified classes.  Put
+\[
+ A_0=a_{p-1}>0,
+ \qquad R=\frac{a_{p-2}}{a_{p-1}},
+ \qquad t=\frac{a_p}{A_0},
+ \qquad w=\frac{a_{p+1}}{A_0}.
+\]
+The first three rows of the first representatives of the three simplified classes are
+\[
+ A_0
+ \begin{pmatrix}
+ 1&t&w\\
+ R&1&t\\
+ R^2&R&1
+ \end{pmatrix}.
+\]
+Its determinant equals
+\begin{equation}\label{eq:endpoint-square}
+ A_0^3(1-Rt)^2.
+\end{equation}
+Log-concavity gives $Rt\le1$.  Equality would make $c_{p+1}$ parallel to $c_p$, contradicting maximality of the initial class.  Thus \eqref{eq:endpoint-square} is positive.  The right endpoint follows by reversing rows and columns.
+\end{proof}
+
+\begin{theorem}[Toeplitz closure of the three-skeleton]\label{thm:tr3-closure}
+Let $A$ be a full-row-rank all-minor totally nonnegative Toeplitz matrix of rank $m$.  For every $k\le\min\{3,m\}$, the truncation $\Tr_kM(A)$ has a full-row-rank all-minor totally nonnegative $k\times n$ Toeplitz representation.
+\end{theorem}
+
+\begin{proof}
+The cases $k=1$ and $k=2$ follow from \Cref{cor:loops-interval}, \Cref{thm:first-circuit} with $r=1$, and the rank-two realization theorem of \cite[Theorem~3]{CGQlow}.
+
+Assume $m\ge3$.  The loops are a prefix and suffix.  By \Cref{thm:endpoint-parallel}, the only nontrivial parallel classes are initial and terminal, with the stated restrictions next to loop boundaries.  Delete loops and simplify.  Every pair of remaining columns is independent, so \Cref{thm:first-circuit} with $r=2$ says that the maximal rank-two flats of size at least three are ordinary intervals, any two meeting in at most one element.  \Cref{lem:endpoint-protection} gives exactly the endpoint restrictions in the rank-three classification of \cite[Theorems~1 and~13]{CGQlow}.
+
+A triple is dependent in $A$ precisely when it contains a loop, contains a parallel pair, or its three simplified images lie in one of those rank-two intervals.  These are exactly the nonbases of $\Tr_3M(A)$.  The realization theorem of \cite{CGQlow} therefore supplies a totally nonnegative $3\times n$ Toeplitz matrix with that column matroid.
+\end{proof}
+
+\section{The quantum-binomial boundary chart}\label{sec:qpoint}
+
+We now refine the Grassmannian root-of-unity Toeplitz point appearing in Rietsch's description of the totally nonnegative part of the Peterson variety \cite{RietschGrassmannian,Rietsch}.  In the rectangular band section relevant here, we determine the exact support of every lower-order minor, compute the transverse consecutive-minor Jacobian, and use the resulting boundary chart for local realization.
+
+\subsection{Dual root-of-unity alphabets}
+
+Fix
+\[
+ m=r+1\ge2,
+ \qquad d\ge1,
+ \qquad N=d+r,
+ \qquad \theta=\frac{\pi}{N}.
+\]
+For $0\le t\le d$, define
+\begin{equation}\label{eq:qbin-b}
+ b_t=\prod_{\ell=1}^{r-1}
+ \frac{\sin((t+\ell)\theta)}{\sin(\ell\theta)},
+\end{equation}
+with the empty product interpreted as $1$.  Put $b_t=0$ outside $[0,d]$.  Define the $m\times(d+m)$ banded Toeplitz matrix
+\begin{equation}\label{eq:C-m-d}
+ C_{m,d}(b)=\bigl(b_{j-i}\bigr)_{0\le i\le r,\ 0\le j\le d+r}.
+\end{equation}
+
+Introduce the centered alphabets
+\begin{align}
+ X&=\bigl\{e^{\mathrm i(2a-r-1)\theta}:1\le a\le r\bigr\},\label{eq:X-alphabet}\\
+ Y&=\bigl\{e^{\mathrm i(2a-d-1)\theta}:1\le a\le d\bigr\}.
+ \label{eq:Y-alphabet}
+\end{align}
+Both are invariant under inversion and have product $1$.  The alphabet $Y$ is the centered right-most-root parametrization of the Grassmannian Toeplitz point; see \cite{RietschGrassmannian,ChungHalpernRietsch}.
+
+\begin{lemma}[Rank--level identity]\label{lem:rank-level}
+For $0\le t\le d$,
+\begin{equation}\label{eq:rank-level-id}
+ b_t=h_t(X)=e_t(Y).
+\end{equation}
+Moreover,
+\begin{equation}\label{eq:h-zeros}
+ h_{d+1}(X)=\cdots=h_{d+r-1}(X)=0.
+\end{equation}
+In particular, $b_0=b_d=1$.
+\end{lemma}
+
+\begin{proof}
+The principal-specialization formula gives
+\[
+ h_t(X)=\prod_{\ell=1}^{r-1}
+ \frac{\sin((t+\ell)\theta)}{\sin(\ell\theta)}.
+\]
+For $1\le s\le r-1$, the product for $h_{d+s}(X)$ contains the factor with $\ell=r-s$, whose numerator is $\sin(N\theta)=0$.  This proves \eqref{eq:h-zeros}.
+
+On the other hand, the $q$-binomial theorem for the centered $d$-letter alphabet gives
+\[
+ e_t(Y)=\prod_{j=1}^t
+ \frac{\sin((d-t+j)\theta)}{\sin(j\theta)}.
+\]
+Since $d+r=N$ and $\sin((N-u)\theta)=\sin(u\theta)$, this equals
+\[
+ \frac{\prod_{u=r}^{r+t-1}\sin(u\theta)}
+ {\prod_{j=1}^{t}\sin(j\theta)}
+ =\frac{\prod_{\ell=1}^{r-1}\sin((t+\ell)\theta)}
+ {\prod_{\ell=1}^{r-1}\sin(\ell\theta)}.
+\]
+Thus both specializations equal \eqref{eq:qbin-b}.  Finally $e_0(Y)=1$ and $e_d(Y)=\prod Y=1$.
+\end{proof}
+
+\subsection{Total nonnegativity and strict lower-order support}
+
+For increasing row and column sets
+\[
+ I=\{i_1<\cdots<i_k\}\subseteq[0,r],
+ \qquad
+ J=\{j_1<\cdots<j_k\}\subseteq[0,d+r],
+\]
+call the pair $(I,J)$ \emph{band-feasible} if
+\begin{equation}\label{eq:band-feasible}
+ i_t\le j_t\le i_t+d
+ \qquad(1\le t\le k).
+\end{equation}
+If this condition fails, the zero pattern of the band matrix admits no perfect matching, so the corresponding determinant is structurally zero.
+
+\begin{theorem}[Quantum-binomial total nonnegativity]\label{thm:qbin-TN}
+The matrix $C_{m,d}(b)$ in \eqref{eq:C-m-d} is totally nonnegative and has row rank $m$.  More precisely:
+\begin{enumerate}
+\item if $1\le k\le m-1$, then
+\begin{equation}\label{eq:strict-lower-band}
+ \det C_{m,d}(b)[I,J]>0
+ \quad\Longleftrightarrow\quad
+ (I,J)\ \text{is band-feasible};
+\end{equation}
+\item every maximal minor is nonnegative;
+\item every set of at most $m-1$ columns is independent.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Let $k\le m$.  The Toeplitz minor identity, in its dual Jacobi--Trudi form, writes
+\begin{equation}\label{eq:dual-JT}
+ \det\bigl(e_{j_q-i_p}(Y)\bigr)_{p,q=1}^k
+ =s_{\lambda'/\mu'}(Y)
+\end{equation}
+for suitable partitions $\mu\subseteq\lambda$ of length at most $k$; explicitly,
+\[
+ \lambda_a=j_{k+1-a}-(k-a),
+ \qquad
+ \mu_a=i_{k+1-a}-(k-a).
+\]
+If \eqref{eq:band-feasible} fails, there is no nonzero permutation in the determinant expansion, and the minor is zero.  Assume it holds.  Then the skew shape $\lambda'/\mu'$ has at most $k$ columns, and every one of its columns has height at most $d$.
+
+For a partition $\nu$, padded to length $d$, the Weyl specialization formula at the alphabet $Y$ is
+\begin{equation}\label{eq:quantum-Weyl}
+ s_\nu(Y)=
+ \prod_{1\le a<b\le d}
+ \frac{\sin((\nu_a-\nu_b+b-a)\theta)}
+ {\sin((b-a)\theta)}.
+\end{equation}
+If $\nu_1\le r$, every sine in the numerator has argument strictly between $0$ and $\pi$, so $s_\nu(Y)>0$.  If $\nu_1\le r+1$, all numerator factors are nonnegative; the only new possibility is a factor $\sin(N\theta)=0$.
+
+Expand the skew Schur function by Littlewood--Richardson coefficients:
+\begin{equation}\label{eq:LR-expansion}
+ s_{\lambda'/\mu'}(Y)
+ =\sum_\nu c^{\lambda'}_{\mu',\nu}s_\nu(Y).
+\end{equation}
+In every Littlewood--Richardson tableau, the number of entries equal to $1$ is at most the number of columns of the skew shape.  Hence every partition occurring in \eqref{eq:LR-expansion} satisfies $\nu_1\le k$.  Terms with more than $d$ parts vanish in $d$ variables.
+
+Band feasibility also gives $s_{\lambda'/\mu'}(1^d)>0$.  Indeed, every skew column has height at most $d$.  Fill each column from top to bottom by its vertical ranks $1,2,\ldots$.  The transpose partitions are weakly decreasing, so these ranks are weakly increasing along rows and strictly increasing down columns.  This produces a semistandard tableau with entries in $[d]$.  Consequently at least one term with at most $d$ parts occurs in \eqref{eq:LR-expansion}.
+
+If $k\le r=m-1$, every surviving term in \eqref{eq:LR-expansion} is strictly positive by \eqref{eq:quantum-Weyl}, proving \eqref{eq:strict-lower-band}.  If $k=m=r+1$, every term is nonnegative, proving maximal-minor nonnegativity.  The first consecutive maximal minor is upper triangular with diagonal $b_0=1$, so the row rank is $m$.
+
+Finally, let $J=\{j_1<\cdots<j_k\}$ with $k\le r$.  Define
+\[
+ i_t=\max\{t-1,j_t-d\}.
+\]
+The sequence $i_1<\cdots<i_k$ lies in $[0,r]$ and satisfies $i_t\le j_t\le i_t+d$.  Thus the corresponding row minor is positive by \eqref{eq:strict-lower-band}, and the columns indexed by $J$ are independent.
+\end{proof}
+
+\begin{remark}\label{rem:quantum-dimension}
+Formula \eqref{eq:quantum-Weyl} is the positive quantum-dimension formula in the level-$r$ alcove.  The proof above uses only the Weyl product and Littlewood--Richardson positivity; no representation-theoretic machinery is required.
+\end{remark}
+
+\subsection{The autocorrelation Jacobian}
+
+For $0\le t\le d$, let
+\begin{equation}\label{eq:Dt-band}
+ D_t(b)=\det\bigl(b_{t+q-p}\bigr)_{0\le p,q\le r}.
+\end{equation}
+At the quantum-binomial point, $D_0=D_d=1$ and $D_t=0$ for $1\le t\le d-1$.
+
+Define the monic polynomial
+\begin{equation}\label{eq:P-recurrence}
+ P(z)=\prod_{x\in X}(z-x)=\sum_{q=0}^r v_qz^q.
+\end{equation}
+The coefficients $v_q$ are real, $v_0=(-1)^r$, $v_r=1$, and
+\begin{equation}\label{eq:v-palindrome}
+ v_{r-q}=(-1)^rv_q.
+\end{equation}
+For $h\in\Z$, put
+\begin{equation}\label{eq:Kh}
+ K_h=\sum_{\substack{0\le p,q\le r\\q-p=h}}v_pv_q,
+\end{equation}
+with $K_h=0$ for $|h|>r$.
+
+\begin{theorem}[Explicit positive-definite Jacobian]\label{thm:q-Jacobian}
+Assume $d\ge2$, fix $b_0=b_d=1$, and define
+\[
+ \Phi(b_1,\ldots,b_{d-1})=(D_1(b),\ldots,D_{d-1}(b)).
+\]
+At the quantum-binomial point,
+\begin{equation}\label{eq:q-Jacobian}
+ D\Phi=\bigl(K_{s-t}\bigr)_{1\le t,s\le d-1}.
+\end{equation}
+This matrix is symmetric positive definite.  Equivalently, for every nonzero $\xi\in\R^{d-1}$,
+\begin{equation}\label{eq:q-Jacobian-integral}
+ \xi^{\mathsf T}D\Phi\,\xi
+ =\frac1{2\pi}\int_0^{2\pi}
+ \left|\sum_{t=1}^{d-1}\xi_te^{\mathrm it\varphi}\right|^2
+ |P(e^{\mathrm i\varphi})|^2\,\dd\varphi>0.
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Let
+\[
+ B_t=\bigl(b_{t+q-p}\bigr)_{0\le p,q\le r},
+ \qquad 1\le t\le d-1.
+\]
+By \Cref{lem:rank-level}, every entry of $B_t$ equals $h_{t+q-p}(X)$, using the usual convention $h_k=0$ for $k<0$ and the additional zeros \eqref{eq:h-zeros}.  Hence
+\[
+ D_t=\det B_t=s_{(t^m)}(X)=0,
+\]
+because $X$ has only $r=m-1$ letters.
+
+The sequence $h_k(X)$ satisfies the order-$r$ recurrence
+\begin{equation}\label{eq:h-recurrence}
+ \sum_{q=0}^rv_qh_{\ell+q}(X)=0.
+\end{equation}
+Thus $B_tv=0$.  By \eqref{eq:v-palindrome}, also $v^{\mathsf T}B_t=0$.  Deleting the first row and first column gives the Jacobi--Trudi determinant
+\[
+ \det\bigl(h_{t+q-p}(X)\bigr)_{1\le p,q\le r}
+ =s_{(t^r)}(X)
+ =(x_1\cdots x_r)^t=1.
+\]
+Equivalently, recurrence \eqref{eq:h-recurrence} advances these cofactor blocks by a companion matrix of determinant one.  Since the initial block is unit upper triangular, every cofactor determinant is one.
+Therefore $\rank B_t=r$, and its adjugate is the rank-one matrix
+\begin{equation}\label{eq:adj-vv}
+ \adj(B_t)=vv^{\mathsf T}.
+\end{equation}
+Indeed, both its left and right image are the kernel line, and its $(0,0)$ entry equals $1=v_0^2$.
+
+Differentiating $D_t$ with respect to $b_s$ and summing the cofactors over the diagonal $t+q-p=s$ gives
+\[
+ \frac{\partial D_t}{\partial b_s}
+ =\sum_{q-p=s-t}v_pv_q=K_{s-t},
+\]
+proving \eqref{eq:q-Jacobian}.  The Fourier coefficients of $|P(e^{\mathrm i\varphi})|^2$ are exactly $K_h$, so Parseval gives \eqref{eq:q-Jacobian-integral}.  A nonzero trigonometric polynomial cannot vanish almost everywhere, while $P(e^{\mathrm i\varphi})$ vanishes only at finitely many points.  The integral is therefore strictly positive.
+\end{proof}
+
+\begin{example}[The first higher-rank sine point]\label{ex:m4}
+Take $m=4$ and $d=3$.  Then $\theta=\pi/6$ and
+\[
+ (b_0,b_1,b_2,b_3)=(1,2,2,1).
+\]
+The band matrix is
+\[
+ \begin{pmatrix}
+ 1&2&2&1&0&0&0\\
+ 0&1&2&2&1&0&0\\
+ 0&0&1&2&2&1&0\\
+ 0&0&0&1&2&2&1
+ \end{pmatrix},
+\]
+with consecutive maximal minors $(1,0,0,1)$.  Here
+\[
+ P(z)=z^3-2z^2+2z-1,
+ \qquad v=(-1,2,-2,1),
+\]
+\begin{samepage}
+The corresponding Jacobian is
+\[
+ D\Phi=\begin{pmatrix}10&-8\\-8&10\end{pmatrix},
+\]
+and its eigenvalues are $2$ and $18$.
+\end{samepage}
+\end{example}
+
+\subsection{Local realization of arbitrary interior data}
+
+\begin{theorem}[Quantum-binomial local realization]\label{thm:q-local}
+Let $m\ge2$ and $d\ge2$.  There is $\eta>0$ such that every
+\[
+ \delta=(\delta_1,\ldots,\delta_{d-1})\in[0,\eta)^{d-1}
+\]
+is realized by a positive coefficient vector $b=(1,b_1,\ldots,b_{d-1},1)$ for which:
+\begin{enumerate}
+\item every band-feasible minor of order at most $m-1$ is strictly positive, and every other lower-order minor is structurally zero;
+\item $D_0=D_d=1$ and $D_t=\delta_t$ for $1\le t\le d-1$;
+\item $C_{m,d}(b)$ is full-row-rank and totally nonnegative;
+\item every set of at most $m-1$ columns is independent.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+By \Cref{thm:q-Jacobian} and the inverse function theorem, $\Phi$ is a local real-analytic diffeomorphism from a neighborhood of the quantum-binomial coefficient vector onto a neighborhood of the origin.  All band-feasible minors of order at most $m-1$ are positive at the base point by \Cref{thm:qbin-TN}; finitely many strict inequalities therefore persist in a sufficiently small coefficient neighborhood.  The structurally forbidden minors remain identically zero.  The column-independence argument in \Cref{thm:qbin-TN} also persists.
+
+Choose the inverse image of $\delta$.  Its lower-order minors are nonnegative, every $(m-1)$-subset of columns is independent, and all consecutive maximal minors are nonnegative.  \Cref{lem:positive-completion} now makes every maximal minor nonnegative and gives the support rule.  Since $D_0=1$, the matrix has full row rank.
+\end{proof}
+
+\section{Classification after deleting loops: the loop-paving sector}\label{sec:loop-paving}
+
+\begin{definition}
+A rank-$m$ matroid is \emph{loop-paving} if deletion of all loops is a rank-$m$ paving matroid.  Equivalently, every set of at most $m-1$ nonloop elements is independent.
+\end{definition}
+
+Let the nonloop interval have $s\ge m$ elements, identify it with $[0,s-1]$, and put
+\[
+ N=s-m+1.
+\]
+For $Z\subseteq[0,N-1]$, an $m$-subset $J=\{j_1<\cdots<j_m\}$ of the nonloop interval is declared a basis when
+\begin{equation}\label{eq:loop-paving-basis-rule}
+ [j_1,j_m-m+1]\nsubseteq Z.
+\end{equation}
+If the maximal runs of $Z$ are $[u_\alpha,v_\alpha]$, define
+\begin{equation}\label{eq:loop-paving-H}
+ H_\alpha=[u_\alpha,v_\alpha+m-1]\subseteq[0,s-1].
+\end{equation}
+
+\begin{theorem}[Complete loop-paving classification]\label{thm:loop-paving}
+Let $M$ be a rank-$m$ loop-paving matroid on $[n]$, with $m\ge2$.  The following are equivalent.
+\begin{enumerate}
+\item $M$ has a full-row-rank all-minor totally nonnegative $m\times n$ Toeplitz representation.
+\item The loops form a prefix $L_0$ and a suffix $R_0$.  After identifying the nonloop interval with $[0,s-1]$, there is a proper subset $Z\subsetneq[0,N-1]$ such that the bases are given by \eqref{eq:loop-paving-basis-rule}, subject to the endpoint conditions
+\begin{equation}\label{eq:protected-Z}
+ L_0\ne\varnothing\Longrightarrow 0\notin Z,
+ \qquad
+ R_0\ne\varnothing\Longrightarrow N-1\notin Z.
+\end{equation}
+\item After deleting the loops, the dependent hyperplanes are proper ordinary intervals $H_1,\ldots,H_q$ of cardinality at least $m$, satisfying
+\begin{equation}\label{eq:loop-paving-overlap}
+ |H_\alpha\cap H_\beta|\le m-2\qquad(\alpha\ne\beta),
+\end{equation}
+and no $H_\alpha$ contains the first nonloop element when $L_0\ne\varnothing$, nor the last nonloop element when $R_0\ne\varnothing$.
+\end{enumerate}
+Every compatible collection is realizable.  In a realization, the consecutive maximal-minor zero set in the nonloop block is exactly $Z$.
+\end{theorem}
+
+\begin{proof}
+Assume (i).  By \Cref{cor:loops-interval}, the loops form a prefix and suffix.  Delete them.  The remaining contiguous Toeplitz submatrix is totally nonnegative, and every $(m-1)$-subset of its columns is independent.  The support theorem \cite[Theorem~10]{CGQpaving}, equivalently \Cref{lem:positive-completion}, gives a proper consecutive-minor zero set $Z$ and the basis rule \eqref{eq:loop-paving-basis-rule}.  If a loop prefix is present, the first nonloop column occurs at the left coefficient-support boundary.  Its first consecutive $m\times m$ block is triangular with positive diagonal, so its determinant is positive and $0\notin Z$.  The right endpoint is symmetric.  Thus (ii) holds.
+
+The equivalence of (ii) and (iii) is the zero-run calculation from the paving classification.  A maximal run $[u,v]$ gives the interval hyperplane $[u,v+m-1]$; separated runs yield intersections of size at most $m-2$.  Conversely, \eqref{eq:loop-paving-overlap} makes the contracted start intervals disjoint and separated.  The endpoint conditions translate exactly into \eqref{eq:protected-Z}.
+
+It remains to prove realization.  Let
+\[
+ \varepsilon_L=\one_{L_0\ne\varnothing},
+ \qquad
+ \varepsilon_R=\one_{R_0\ne\varnothing},
+\]
+and set
+\begin{equation}\label{eq:d-a-choice}
+ d=N+1-\varepsilon_L-\varepsilon_R,
+ \qquad
+ a=1-\varepsilon_L.
+\end{equation}
+The target nonloop block will be the consecutive column window
+\begin{equation}\label{eq:target-window}
+ [a,a+s-1]
+\end{equation}
+inside the band matrix $C_{m,d}(b)$.  Its consecutive maximal minors are
+\[
+ D_a,D_{a+1},\ldots,D_{a+N-1}.
+\]
+The left endpoint of this list is $D_0$ exactly when a loop prefix is prescribed, and the right endpoint is $D_d$ exactly when a loop suffix is prescribed.  Hence every target coordinate not protected by \eqref{eq:protected-Z} is one of the interior coordinates $D_1,\ldots,D_{d-1}$, and every interior coordinate is a target coordinate.
+
+If $d\le1$, the endpoint conditions force $Z=\varnothing$, and the unperturbed band matrix gives the required uniform core.  Assume $d\ge2$.  Choose a sufficiently small $\epsilon>0$ and prescribe
+\[
+ D_{a+u}=\begin{cases}
+ 0,&u\in Z,\\
+ \epsilon,&u\notin Z
+ \end{cases}
+\]
+for every unprotected target index; the protected endpoint minors remain $1$.  \Cref{thm:q-local} produces a totally nonnegative banded Toeplitz matrix realizing these values.  Restrict it to the window \eqref{eq:target-window}.  Every set of at most $m-1$ columns remains independent, and \Cref{lem:positive-completion} gives exactly the basis support \eqref{eq:loop-paving-basis-rule}.
+
+Finally, translate the coefficient support and enlarge the displayed column interval.  Columns strictly before the left band boundary are zero, as are columns strictly after the right band boundary.  This inserts any prescribed positive lengths of the loop prefix and suffix without altering the nonloop minor support.  Thus (ii) implies (i).
+\end{proof}
+
+\begin{corollary}[Enumeration with fixed loop boundaries]\label{cor:loop-paving-count}
+Fix $m$, the length $s$ of the nonloop interval, and whether the left and right loop intervals are empty.  Put $N=s-m+1$.  The number of loop-paving Toeplitz positroid cells with these fixed boundary choices is
+\[
+ \begin{array}{c|c}
+ \text{loop boundaries}&\text{number of cells}\\ \hline
+ \text{none}&2^N-1\\
+ \text{exactly one}&2^{N-1}\\
+ \text{both, }N\ge2&2^{N-2}\\
+ \text{both, }N=1&1.
+ \end{array}
+\]
+\end{corollary}
+
+\begin{proof}
+Choose the admissible zero set $Z$.  With no protected endpoint, only the all-zero consecutive-minor vector is excluded.  Each protected endpoint is forced outside $Z$; when $N=1$, the two protected endpoints coincide.
+\end{proof}
+
+\begin{remark}
+For $m=2$, \Cref{thm:loop-paving} recovers the complete rank-two classification: dependent hyperplanes are consecutive parallel classes, and a class adjacent to loops is a singleton.  For $m=3$, it gives the simple, no-parallel part of the complete rank-three classification, including both loop boundaries.  For arbitrary $m$ and no loops, it recovers the paving theorem of \cite{CGQpaving}, now through a second, banded local chart.
+\end{remark}
+
+\section{Exact Edrei and finite-band lattice-path families}\label{sec:edrei}
+
+The preceding theorems are local realization results.  We next record two global families with exact support formulas.
+
+\subsection{Arbitrary row sections of finite Edrei matrices}
+
+Let
+\begin{equation}\label{eq:Edrei-H}
+ H(z)=e^{\gamma z}
+ \frac{\prod_{b=1}^{q}(1+\beta_bz)}
+ {\prod_{a=1}^{p}(1-\alpha_az)}
+ =\sum_{k\ge0}h_kz^k,
+ \qquad \alpha_a,\beta_b>0,\quad\gamma\ge0,
+\end{equation}
+and put $h_k=0$ for $k<0$.  Let $T=(h_{j-i})_{i,j\ge1}$.
+
+The finite Edrei support theorem of \cite[Theorem~23]{CGQlow} gives a coordinatewise description of every minor.  The following translation makes the associated lattice paths explicit.
+
+\begin{proposition}[Lattice-path bounds for row sections]\label{prop:Edrei-lattice}
+Fix a row set $I=\{i_1<\cdots<i_m\}$ and a consecutive column ground block
+\[
+ \{v+1,v+2,\ldots,v+n\}.
+\]
+For a local $m$-subset $K=\{k_1<\cdots<k_m\}\subseteq[n]$, put $J=v+K$.  Define
+\begin{equation}\label{eq:Edrei-L}
+ L_t=\max\{t,i_t-v\},
+\end{equation}
+and
+\begin{equation}\label{eq:Edrei-U}
+ U_t=
+ \begin{cases}
+ \min\{n-m+t,\ i_{t+p}-v-p+q\},
+ &\gamma=0\ \text{and }t\le m-p,\\
+ n-m+t,&\text{otherwise.}
+ \end{cases}
+\end{equation}
+Then
+\begin{equation}\label{eq:Edrei-basis}
+ \det T[I,J]>0
+ \quad\Longleftrightarrow\quad
+ L_t\le k_t\le U_t\quad(1\le t\le m).
+\end{equation}
+Thus every full-rank row section in this family represents a lattice-path matroid, and its support depends only on $(p,q,\one_{\gamma>0})$ and the row/column positions, not on the positive parameter values.
+\end{proposition}
+
+\begin{proof}
+The finite Edrei support formula says that, when $\gamma=0$,
+\[
+ \det T[I,J]>0
+ \quad\Longleftrightarrow\quad
+ i_t\le j_t\ \text{for all }t,
+ \quad
+ j_t\le i_{t+p}-p+q\ \text{for }t\le m-p.
+\]
+When $\gamma>0$, only the first family remains.  Substitute $j_t=v+k_t$ and add the natural bounds $t\le k_t\le n-m+t$ for an increasing $m$-subset of $[n]$.
+\end{proof}
+
+\begin{corollary}[Consecutive row blocks]\label{cor:Edrei-consecutive}
+If $i_t=u+t$ and $\tau=v-u$, then
+\[
+ k_t\ge\max\{t,t-\tau\},
+\]
+and, when $\gamma=0$ and $t\le m-p$,
+\[
+ k_t\le\min\{n-m+t,t+q-\tau\}.
+\]
+In particular, consecutive-row Toeplitz sections of finite Edrei matrices yield an explicit family of Toeplitz lattice-path positroids.  The first-row-block Schubert positroid of \cite[Corollary~24]{CGQlow} is the special case $u=v=0$.
+\end{corollary}
+
+\subsection{A two-sided finite-band support theorem}
+
+Let
+\begin{equation}\label{eq:two-sided-symbol}
+ A(z)=
+ \prod_{a=1}^{q_+}(1+\beta_az)
+ \prod_{b=1}^{q_-}(1+\gamma_bz^{-1}),
+ \qquad \beta_a,\gamma_b>0,
+\end{equation}
+and let $T_A=(a_{j-i})_{i,j\in\Z}$ be its bi-infinite Toeplitz matrix.
+
+\begin{theorem}[Two-sided finite-band support]\label{thm:two-sided-band}
+For increasing $r$-subsets
+\[
+ I=\{i_1<\cdots<i_r\},
+ \qquad
+ J=\{j_1<\cdots<j_r\}
+\]
+of $\Z$, one has
+\begin{equation}\label{eq:two-sided-support}
+ \det T_A[I,J]>0
+ \quad\Longleftrightarrow\quad
+ -q_-\le j_t-i_t\le q_+
+ \quad(1\le t\le r).
+\end{equation}
+Every finite section of $T_A$ is totally nonnegative.  For a fixed row set and a consecutive column ground block $v+[n]$, its maximal-minor support is the lattice-path system
+\begin{equation}\label{eq:two-sided-lattice}
+ \max\{t,i_t-v-q_-\}
+ \le k_t\le
+ \min\{n-r+t,i_t-v+q_+\}.
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Factor $T_A=UL$, where $U$ is the upper triangular Toeplitz matrix generated by $\prod(1+\beta_az)$ and $L$ is the lower triangular Toeplitz matrix generated by $\prod(1+\gamma_bz^{-1})$.  Both are totally nonnegative.  The finite Edrei support criterion with $p=0$ gives
+\[
+ \det U[I,K]>0
+ \quad\Longleftrightarrow\quad
+ i_t\le k_t\le i_t+q_+,
+\]
+and, after transposition,
+\[
+ \det L[K,J]>0
+ \quad\Longleftrightarrow\quad
+ j_t\le k_t\le j_t+q_-.
+\]
+Cauchy--Binet expresses $\det T_A[I,J]$ as a finite sum of nonnegative products.  A positive summand exists if and only if there is an increasing $K$ satisfying both systems.  Necessity gives
+\[
+ j_t\le i_t+q_+,
+ \qquad i_t\le j_t+q_-.
+\]
+Conversely, under these inequalities, the choice $k_t=\max\{i_t,j_t\}$ is strictly increasing and satisfies both systems.  This proves \eqref{eq:two-sided-support}.  Substituting $j_t=v+k_t$ gives \eqref{eq:two-sided-lattice}.
+\end{proof}
+
+\section{What remains of the AIM problem}\label{sec:remaining}
+
+The results now available can be organized by the truncation tower
+\[
+ \Tr_1M,\ \Tr_2M,\ \ldots,\ \Tr_mM=M.
+\]
+Passing from $\Tr_kM$ to $\Tr_{k+1}M$ is an erection problem.  The known and newly proved cases are:
+\begin{itemize}
+\item ranks two and three, including every boundary degeneration \cite{CGQlow};
+\item the uniform-to-paving erection in every rank \cite{CGQpaving};
+\item the first circuit layer over any uniform lower skeleton, by \Cref{thm:first-circuit};
+\item every loop-paving stratum, by \Cref{thm:loop-paving};
+\item the entire three-skeleton of every arbitrary-rank Toeplitz positroid, by \Cref{thm:tr3-closure};
+\item several global lattice-path families, by \Cref{prop:Edrei-lattice,thm:two-sided-band}.
+\end{itemize}
+
+The first genuinely unresolved case is therefore rank four with a nonuniform rank-three truncation.  After loops and endpoint parallel classes are removed, the rank-two flats are known ordinary intervals.  What is missing is a subtraction-free interpolation theorem for maximal minors in the presence of those lower-rank interval flats.  In the positive-flag proof of \cite{CGQpaving}, every denominator is a strictly positive lower Pl\"ucker coordinate.  In the nonuniform case some of those coordinates vanish, and one must first contract, quotient, or record the corresponding interval flats before interpolating.
+
+This suggests the following precise conjectures.
+
+\begin{conjecture}[Toeplitz truncation closure]\label{conj:toeplitz-truncation}
+If $M$ has an all-minor totally nonnegative Toeplitz representation, then $\Tr_kM$ has an all-minor totally nonnegative Toeplitz representation for every $k$.
+\end{conjecture}
+
+\Cref{thm:tr3-closure} proves the conjecture for $k\le3$.  \Cref{thm:loop-paving}, together with \Cref{thm:first-circuit}, proves it whenever deleting loops from $\Tr_kM$ leaves a paving matroid.
+
+\begin{conjecture}[Linear interval-rank conjecture]\label{conj:interval-rank}
+Every all-minor totally nonnegative Toeplitz positroid is an interval positroid in the natural linear order; equivalently, its matroid is determined by rank conditions on ordinary intervals of columns.
+\end{conjecture}
+
+The conjecture is consistent with the complete low-rank classification, the paving and loop-paving classifications, and the finite Edrei and finite-band families.  It is stronger than the assertion that the matroid is merely a positroid, because it singles out the displayed linear order rather than the ambient cyclic order.
+
+\begin{conjecture}[Stratified consecutive interpolation]\label{conj:stratified-interpolation}
+Let $A$ be all-minor totally nonnegative.  After contracting the maximal lower-rank interval flats visible in $\Tr_rM(A)$, every rank-$(r+1)$ circuit admits a positive subdivision into adapted consecutive circuits.  The vanishing of rank-$(r+1)$ minors is then determined by a finite collection of consecutive anchors on the contracted intervals.
+\end{conjecture}
+
+A proof of \Cref{conj:stratified-interpolation}, combined with a Toeplitz Jacobian chart on each stratum, would give an induction on the truncation tower and would resolve the AIM problem.  The quantum-binomial chart indicates that root-of-unity Schur specializations may supply the required boundary base points: their lower-order minors have exact positive support, while the recurrence polynomial turns the consecutive-minor Jacobian into a positive autocorrelation operator.
+
+\begin{question}[Rank-four core]
+Classify the rank-four Toeplitz positroids whose rank-three truncation has prescribed compatible rank-three data in the sense of \cite{CGQlow}.  Is every admissible rank-three interval-flat pattern extendable exactly when the maximal rank-three flats form a nested ordinary-interval erection?
+\end{question}
+
+This is the smallest remaining test of the proposed induction.  It is finite, concrete, and amenable to a combination of symbolic minor identities, oriented-matroid contraction, and local Toeplitz Jacobian calculations.
+
+\section*{Declaration of generative AI and AI-assisted technologies}
+During the preparation of this work, the authors used OpenAI's ChatGPT to explore proof strategies, test finite determinant identities, and assist in drafting.  The authors reviewed and edited the resulting material and take full responsibility for the mathematical content.
+
+\begin{thebibliography}{99}
+
+\bibitem{AIM}
+American Institute of Mathematics,
+\emph{Theory and applications of total positivity, Problem 1.3 (Problem 9 in the original workshop handout)},
+\url{https://aimpl.org/totalpos/1/}.
+
+\bibitem{Bonin}
+J.~E. Bonin,
+\emph{A characterization of positroids, with applications to amalgams and excluded minors},
+European J. Combin. \textbf{122} (2024), Paper No.~104040, 33 pp.
+
+\bibitem{ChungHalpernRietsch}
+I.~Chung-Halpern and K.~Rietsch,
+\emph{Grassmannian quantum cohomology in the infinite limit and total positivity},
+arXiv:2606.16983 (2026).
+
+\bibitem{CGQlow}
+Y.~Cheng, S.~Gu, and W.~Qi,
+\emph{Toeplitz positroids in ranks two and three},
+companion preprint, fourth revised version, August 2026.
+
+\bibitem{CGQpaving}
+Y.~Cheng, S.~Gu, and W.~Qi,
+\emph{Positive consecutive-minor interpolation and paving Toeplitz positroids},
+companion preprint, August 2026.
+
+\bibitem{FallatJohnson}
+S.~M. Fallat and C.~R. Johnson,
+\emph{Totally Nonnegative Matrices},
+Princeton Series in Applied Mathematics, Princeton University Press, 2011.
+
+\bibitem{GarciaTierz}
+D.~Garc\'ia-Garc\'ia and M.~Tierz,
+\emph{Toeplitz minors and specializations of skew Schur polynomials},
+J. Combin. Theory Ser. A \textbf{172} (2020), 105201.
+
+\bibitem{Knutson}
+A.~Knutson,
+\emph{Schubert calculus and shifting of interval positroid varieties},
+arXiv:1408.1261 (2014).
+
+\bibitem{Macdonald}
+I.~G. Macdonald,
+\emph{Symmetric Functions and Hall Polynomials}, second ed.,
+Oxford Mathematical Monographs, Oxford University Press, 1995.
+
+\bibitem{Park}
+H.~Park,
+\emph{Excluded minors of interval positroids that are paving matroids},
+arXiv:2312.03525 (2023).
+
+\bibitem{Postnikov}
+A.~Postnikov,
+\emph{Total positivity, Grassmannians, and networks},
+arXiv:math/0609764 (2006).
+
+\bibitem{RietschGrassmannian}
+K.~Rietsch,
+\emph{Quantum cohomology rings of Grassmannians and total positivity},
+Duke Math. J. \textbf{110} (2001), no.~3, 523--553,
+\href{https://doi.org/10.1215/S0012-7094-01-11033-8}{doi:10.1215/S0012-7094-01-11033-8}.
+
+\bibitem{Rietsch}
+K.~Rietsch,
+\emph{Totally positive Toeplitz matrices and quantum cohomology of partial flag varieties},
+J. Amer. Math. Soc. \textbf{16} (2003), no.~2, 363--392;
+erratum, J. Amer. Math. Soc. \textbf{21} (2008), no.~2, 611--614.
+
+\end{thebibliography}
+
+\end{document}
