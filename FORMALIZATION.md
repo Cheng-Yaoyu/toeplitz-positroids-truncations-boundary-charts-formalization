@@ -18,7 +18,10 @@ Charts for Totally Nonnegative Toeplitz Positroids* in Lean 4.
 ## Scope
 
 Sections 2--7 contain the proved mathematical results and are formalization
-targets. Conjectures 8.1--8.3 and Question 8.4 are open problems; they are not
+targets. Their substantive implications are checked below; some paper-level
+equivalences are deliberately split into necessity, support, realization, and
+counting theorems rather than bundled as a single statement about an abstract
+matroid. Conjectures 8.1--8.3 and Question 8.4 are open problems; they are not
 introduced as axioms or theorems.
 
 ## Theorem crosswalk
@@ -77,12 +80,13 @@ theorem API and are recorded as open statements in `OPEN_PROBLEMS.md`.
   `f = F*lambda^(m+s-1)`. An initial scratch transcription used `u+v+2`;
   Lean rejected the index alignment, and the project source now contains the
   corrected formula.
-- The principal cofactor in equation (33) is now checked directly, rather
-  than retained as an unspecified positive scale.  The order-`r` Toeplitz
-  cofactor blocks advance by a determinant-one companion matrix and start
-  from an upper-triangular unit-diagonal block.  Hence every cofactor is
-  exactly `1`, and the actual Jacobian in equation (30) is itself the
-  symmetric positive-definite autocorrelation kernel.
+- The distinguished principal cofactor in equation (33) is now checked
+  directly, rather than retained as an unspecified positive scale.  Its
+  order-`r` Toeplitz blocks advance by a determinant-one companion matrix and
+  start from an upper-triangular unit-diagonal block.  Hence this principal
+  cofactor is exactly `1` for every interior block, and the actual Jacobian in
+  equation (30) is itself the symmetric positive-definite autocorrelation
+  kernel.
 - The final kernel transfer in Theorem 3.6 is explicit.  Appending any row
   of `A` to the positive projection gives a row transform of `A`; dependence
   of the selected columns makes its determinant zero, and Laplace expansion

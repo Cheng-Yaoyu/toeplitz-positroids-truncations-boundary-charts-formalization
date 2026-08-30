@@ -8,6 +8,17 @@ those two papers is deliberately deferred.
 
 ## Mathematical and expository changes
 
+- Clarified the novelty boundary: the Rietsch root-of-unity point, the
+  Toeplitz--Schur identity, and the loop-free paving classification are stated
+  explicitly as inputs, while the exact rectangular support, actual
+  autocorrelation derivative, loop-paving chart, and truncation consequences
+  are identified as the new contributions.
+- Defined a nonstructural two-by-two minor explicitly and corrected the
+  cofactor wording in Theorem 5.4 to refer to the distinguished principal
+  cofactor sequence, not all entries of the adjugate.
+- Added background citations for total nonnegativity, positroids, interval
+  positroids, and symmetric functions, and added persistent repository links
+  for both companion preprints.
 - Repositioned the quantum-binomial point as a refinement of Rietsch's
   Grassmannian root-of-unity Toeplitz point. The manuscript now identifies
   the new contribution as exact rectangular lower-minor support, the

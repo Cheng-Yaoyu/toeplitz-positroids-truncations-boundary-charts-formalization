@@ -71,7 +71,7 @@ for Totally Nonnegative Toeplitz Positroids}
 \address{Department of Physics, The Ohio State University, Columbus, OH 43210, USA}
 \email{qi.673@osu.edu}
 
-\date{August 28, 2026}
+\date{Revised August 30, 2026}
 
 \subjclass[2020]{Primary 15B48, 05B35; Secondary 14M15, 15A15, 05E05}
 \keywords{Totally nonnegative Toeplitz matrix, positroid, matroid truncation, paving matroid, consecutive minor, quantum binomial coefficient, Schur polynomial, inverse function theorem}
@@ -98,11 +98,13 @@ Let
 \[
  T_m(a)=\bigl(a_{j-i}\bigr)_{1\le i\le m,\ 1\le j\le n}
 \]
-be a finite real Toeplitz matrix.  The AIM problem asks for the possible zero--nonzero patterns of minors of a totally nonnegative Toeplitz matrix, or, at the maximal-minor level, for the positroid cells that meet the Toeplitz locus \cite{AIM}.  The distinction between Grassmannian nonnegativity and all-minor total nonnegativity is essential: throughout this paper a \emph{Toeplitz positroid} is represented by a full-row-rank Toeplitz matrix whose minors of every order are nonnegative.
+be a finite real Toeplitz matrix.  The AIM problem asks for the possible zero--nonzero patterns of minors of a totally nonnegative Toeplitz matrix, or, at the maximal-minor level, for the positroid cells that meet the Toeplitz locus \cite{AIM}.  For background on total nonnegativity and positroids, see \cite{FallatJohnson,Postnikov}.  The distinction between Grassmannian nonnegativity and all-minor total nonnegativity is essential: throughout this paper a \emph{Toeplitz positroid} is represented by a full-row-rank Toeplitz matrix whose minors of every order are nonnegative.
 
 Two companion papers settle substantial parts of the problem.  The first classifies all Toeplitz positroids in ranks two and three, including loops, endpoint parallel classes, and rank-two interval flats \cite{CGQlow}.  The second classifies the paving sector in every rank: the zero set of the consecutive maximal minors is arbitrary and proper, and its maximal runs expand to ordinary interval hyperplanes \cite{CGQpaving}.  It also proves the positive interpolation identity that will be our main input.
 
-The root-of-unity Toeplitz point used below belongs to the Grassmannian part of Rietsch's description of total positivity and quantum cohomology \cite{RietschGrassmannian,Rietsch}.  Recent work of Chung-Halpern and Rietsch places the same centered-root parametrization in its current Grassmannian and asymptotic context \cite{ChungHalpernRietsch}.  Toeplitz-minor identities in terms of skew Schur specializations were developed systematically by Garc\'ia-Garc\'ia and Tierz \cite{GarciaTierz}.  Our contribution is support-theoretic and transverse to these parametrizations: we determine the exact lower-minor support of the relevant rectangular section, compute its consecutive-minor Jacobian, and use the resulting boundary chart to classify every loop-paving stratum.
+The root-of-unity Toeplitz point used below belongs to the Grassmannian part of Rietsch's description of total positivity and quantum cohomology \cite{RietschGrassmannian,Rietsch}.  Recent work of Chung-Halpern and Rietsch places the same centered-root parametrization in its current Grassmannian and asymptotic context \cite{ChungHalpernRietsch}.  Toeplitz-minor identities in terms of skew Schur specializations were developed systematically by Garc\'ia-Garc\'ia and Tierz \cite{GarciaTierz}.  Interval positroids and their paving obstructions have been studied from a complementary matroid-theoretic viewpoint \cite{Knutson,Park}.
+
+For clarity, the root-of-unity parametrization, the Toeplitz--Schur identity, and the loop-free paving classification are inputs, not novelty claims of this paper.  Our new contribution is support-theoretic and transverse to those inputs: we determine the exact lower-minor support of the relevant rectangular root-of-unity section, identify the actual consecutive-minor derivative with a positive-definite autocorrelation kernel, use the resulting boundary chart to classify every loop-paving stratum, and derive the truncation and first-circuit consequences below.
 
 The purpose of the present paper is not to claim a complete solution of the AIM problem.  Rather, it gives a rigorous next layer and narrows the unsolved part to a precise class of higher-rank erections.  The principal new conclusions are the following.
 
@@ -336,6 +338,8 @@ Then $A$ is $\TN_2$ if and only if:
 For a nonstructural $2\times2$ minor with row distance $h$ and column distance $\ell$, equality holds if and only if all coefficient ratios across the intervening index interval are equal.
 \end{proposition}
 
+Here \emph{nonstructural} means that all four entries of the minor lie in the positive coefficient support.  Thus every coefficient appearing in its cross-product comparison is strictly positive.
+
 \begin{proof}
 Necessity of coefficientwise nonnegativity is immediate.  Suppose $a_p,a_q>0$, $p<q$, and every coefficient strictly between them is zero.  Then $q-p\ge2$.  Choose
 \[
@@ -564,7 +568,7 @@ Let $k\le m$.  The Toeplitz minor identity, in its dual Jacobi--Trudi form, writ
  \det\bigl(e_{j_q-i_p}(Y)\bigr)_{p,q=1}^k
  =s_{\lambda'/\mu'}(Y)
 \end{equation}
-for suitable partitions $\mu\subseteq\lambda$ of length at most $k$; explicitly,
+for the standard skew Schur function; see \cite{GarciaTierz,Macdonald} for the Toeplitz-minor and symmetric-function background.  For suitable partitions $\mu\subseteq\lambda$ of length at most $k$, explicitly,
 \[
  \lambda_a=j_{k+1-a}-(k-a),
  \qquad
@@ -665,7 +669,7 @@ Thus $B_tv=0$.  By \eqref{eq:v-palindrome}, also $v^{\mathsf T}B_t=0$.  Deleting
  =s_{(t^r)}(X)
  =(x_1\cdots x_r)^t=1.
 \]
-Equivalently, recurrence \eqref{eq:h-recurrence} advances these cofactor blocks by a companion matrix of determinant one.  Since the initial block is unit upper triangular, every cofactor determinant is one.
+Equivalently, recurrence \eqref{eq:h-recurrence} advances this sequence of principal-cofactor blocks by a companion matrix of determinant one.  Since the initial block is unit upper triangular, the distinguished principal cofactor equals one for every interior block $B_t$.
 Therefore $\rank B_t=r$, and its adjugate is the rank-one matrix
 \begin{equation}\label{eq:adj-vv}
  \adj(B_t)=vv^{\mathsf T}.
@@ -830,7 +834,7 @@ For $m=2$, \Cref{thm:loop-paving} recovers the complete rank-two classification:
 
 \section{Exact Edrei and finite-band lattice-path families}\label{sec:edrei}
 
-The preceding theorems are local realization results.  We next record two global families with exact support formulas.
+The preceding theorems are local realization results.  We next record two global families with exact support formulas.  Besides supplying explicit examples, these families give global evidence for the linear interval-rank conjecture in \Cref{sec:remaining}.
 
 \subsection{Arbitrary row sections of finite Edrei matrices}
 
@@ -967,7 +971,7 @@ Passing from $\Tr_kM$ to $\Tr_{k+1}M$ is an erection problem.  The known and new
 \item several global lattice-path families, by \Cref{prop:Edrei-lattice,thm:two-sided-band}.
 \end{itemize}
 
-The first genuinely unresolved case is therefore rank four with a nonuniform rank-three truncation.  After loops and endpoint parallel classes are removed, the rank-two flats are known ordinary intervals.  What is missing is a subtraction-free interpolation theorem for maximal minors in the presence of those lower-rank interval flats.  In the positive-flag proof of \cite{CGQpaving}, every denominator is a strictly positive lower Pl\"ucker coordinate.  In the nonuniform case some of those coordinates vanish, and one must first contract, quotient, or record the corresponding interval flats before interpolating.
+Within this truncation program, the first genuinely unresolved case is rank four with a nonuniform rank-three truncation.  After loops and endpoint parallel classes are removed, the rank-two flats are known ordinary intervals.  What is missing is a subtraction-free interpolation theorem for maximal minors in the presence of those lower-rank interval flats.  In the positive-flag proof of \cite{CGQpaving}, every denominator is a strictly positive lower Pl\"ucker coordinate.  In the nonuniform case some of those coordinates vanish, and one must first contract, quotient, or record the corresponding interval flats before interpolating.
 
 This suggests the following precise conjectures.
 
@@ -981,7 +985,7 @@ If $M$ has an all-minor totally nonnegative Toeplitz representation, then $\Tr_k
 Every all-minor totally nonnegative Toeplitz positroid is an interval positroid in the natural linear order; equivalently, its matroid is determined by rank conditions on ordinary intervals of columns.
 \end{conjecture}
 
-The conjecture is consistent with the complete low-rank classification, the paving and loop-paving classifications, and the finite Edrei and finite-band families.  It is stronger than the assertion that the matroid is merely a positroid, because it singles out the displayed linear order rather than the ambient cyclic order.
+The conjecture is consistent with the complete low-rank classification, the paving and loop-paving classifications, and the finite Edrei and finite-band families.  It is stronger than the assertion that the matroid is merely a positroid, because it singles out the displayed linear order rather than the ambient cyclic order; compare the interval-positroid frameworks in \cite{Knutson,Park}.
 
 \begin{conjecture}[Stratified consecutive interpolation]\label{conj:stratified-interpolation}
 Let $A$ be all-minor totally nonnegative.  After contracting the maximal lower-rank interval flats visible in $\Tr_rM(A)$, every rank-$(r+1)$ circuit admits a positive subdivision into adapted consecutive circuits.  The vanishing of rank-$(r+1)$ minors is then determined by a finite collection of consecutive anchors on the contracted intervals.
@@ -1018,12 +1022,14 @@ arXiv:2606.16983 (2026).
 \bibitem{CGQlow}
 Y.~Cheng, S.~Gu, and W.~Qi,
 \emph{Toeplitz positroids in ranks two and three},
-companion preprint, fourth revised version, August 2026.
+companion preprint, fourth revised version, August 2026,
+\url{https://github.com/Cheng-Yaoyu/toeplitz-positroids-ranks-2-3-formalization}.
 
 \bibitem{CGQpaving}
 Y.~Cheng, S.~Gu, and W.~Qi,
 \emph{Positive consecutive-minor interpolation and paving Toeplitz positroids},
-companion preprint, August 2026.
+companion preprint, August 2026,
+\url{https://github.com/Cheng-Yaoyu/paving-toeplitz-positroids-formalization}.
 
 \bibitem{FallatJohnson}
 S.~M. Fallat and C.~R. Johnson,
