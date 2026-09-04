@@ -2,12 +2,17 @@
 
 The manuscript is now titled *Truncations, Circuit Layers, and Quantum
 Boundary Charts for Totally Nonnegative Toeplitz Positroids*. Its source is
-`toeplitz_positroids_truncations_boundary_charts.tex`. This revision covers
+`paper/toeplitz_positroids_truncations_boundary_charts.tex`. This revision covers
 the directions independent of companion papers [3] and [4]; revision of
 those two papers is deliberately deferred.
 
 ## Mathematical and expository changes
 
+- Standardized the manuscript location with Papers A and B under `paper/`,
+  added machine-readable citation metadata, direct GitHub PDF links for both
+  companion papers, and a data-and-code availability statement.
+- Updated the Rietsch survey citation to its 2026 ICM proceedings form with
+  DOI, while retaining the current corrected arXiv version.
 - Clarified the novelty boundary: the Rietsch root-of-unity point, the
   Toeplitz--Schur identity, and the loop-free paving classification are stated
   explicitly as inputs, while the exact rectangular support, actual

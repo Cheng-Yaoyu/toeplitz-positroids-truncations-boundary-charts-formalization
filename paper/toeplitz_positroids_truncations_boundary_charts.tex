@@ -71,7 +71,7 @@ for Totally Nonnegative Toeplitz Positroids}
 \address{Department of Physics, The Ohio State University, Columbus, OH 43210, USA}
 \email{qi.673@osu.edu}
 
-\date{Revised August 30, 2026}
+\date{Revised September 4, 2026}
 
 \subjclass[2020]{Primary 15B48, 05B35; Secondary 14M15, 15A15, 05E05}
 \keywords{Totally nonnegative Toeplitz matrix, positroid, matroid truncation, paving matroid, consecutive minor, quantum binomial coefficient, Schur polynomial, inverse function theorem}
@@ -102,7 +102,7 @@ be a finite real Toeplitz matrix.  The AIM problem asks for the possible zero--n
 
 Two companion papers settle substantial parts of the problem.  The first classifies all Toeplitz positroids in ranks two and three, including loops, endpoint parallel classes, and rank-two interval flats \cite{CGQlow}.  The second classifies the paving sector in every rank: the zero set of the consecutive maximal minors is arbitrary and proper, and its maximal runs expand to ordinary interval hyperplanes \cite{CGQpaving}.  It also proves the positive interpolation identity that will be our main input.
 
-The root-of-unity Toeplitz point used below belongs to the Grassmannian part of Rietsch's description of total positivity and quantum cohomology \cite{RietschGrassmannian,Rietsch}.  Recent work of Chung-Halpern and Rietsch places the same centered-root parametrization in its current Grassmannian and asymptotic context \cite{ChungHalpernRietsch}.  Toeplitz-minor identities in terms of skew Schur specializations were developed systematically by Garc\'ia-Garc\'ia and Tierz \cite{GarciaTierz}.  Interval positroids and their paving obstructions have been studied from a complementary matroid-theoretic viewpoint \cite{Knutson,Park}.
+The root-of-unity Toeplitz point used below belongs to the Grassmannian part of Rietsch's description of total positivity and quantum cohomology \cite{RietschGrassmannian,Rietsch}.  Rietsch's recent ICM survey and work of Chung-Halpern and Rietsch place the same centered-root parametrization in its current Toeplitz, Grassmannian, and asymptotic context \cite{RietschSurvey,ChungHalpernRietsch}.  Toeplitz-minor identities in terms of skew Schur specializations were developed systematically by Garc\'ia-Garc\'ia and Tierz \cite{GarciaTierz}.  Interval positroids and their paving obstructions have been studied from a complementary matroid-theoretic viewpoint \cite{Knutson,Park}.
 
 For clarity, the root-of-unity parametrization, the Toeplitz--Schur identity, and the loop-free paving classification are inputs, not novelty claims of this paper.  Our new contribution is support-theoretic and transverse to those inputs: we determine the exact lower-minor support of the relevant rectangular root-of-unity section, identify the actual consecutive-minor derivative with a positive-definite autocorrelation kernel, use the resulting boundary chart to classify every loop-paving stratum, and derive the truncation and first-circuit consequences below.
 
@@ -999,6 +999,10 @@ Classify the rank-four Toeplitz positroids whose rank-three truncation has presc
 
 This is the smallest remaining test of the proposed induction.  It is finite, concrete, and amenable to a combination of symbolic minor identities, oriented-matroid contraction, and local Toeplitz Jacobian calculations.
 
+\section*{Data and code availability}
+The manuscript, Lean~4 formalization, and reproducibility instructions are available at
+the \href{https://github.com/Cheng-Yaoyu/toeplitz-positroids-truncations-boundary-charts-formalization}{GitHub repository}.
+
 \section*{Declaration of generative AI and AI-assisted technologies}
 During the preparation of this work, the authors used OpenAI's ChatGPT to explore proof strategies, test finite determinant identities, and assist in drafting.  The authors reviewed and edited the resulting material and take full responsibility for the mathematical content.
 
@@ -1022,14 +1026,14 @@ arXiv:2606.16983 (2026).
 \bibitem{CGQlow}
 Y.~Cheng, S.~Gu, and W.~Qi,
 \emph{Toeplitz positroids in ranks two and three},
-companion preprint, fourth revised version, August 2026,
-\url{https://github.com/Cheng-Yaoyu/toeplitz-positroids-ranks-2-3-formalization}.
+companion preprint, fourth revised version, September 2026,
+\href{https://github.com/Cheng-Yaoyu/toeplitz-positroids-ranks-2-3-formalization/blob/main/paper/toeplitz_positroids_ranks_2_3_fourth_revised.pdf}{GitHub manuscript}.
 
 \bibitem{CGQpaving}
 Y.~Cheng, S.~Gu, and W.~Qi,
 \emph{Positive consecutive-minor interpolation and paving Toeplitz positroids},
-companion preprint, August 2026,
-\url{https://github.com/Cheng-Yaoyu/paving-toeplitz-positroids-formalization}.
+companion preprint, revised September 2026,
+\href{https://github.com/Cheng-Yaoyu/paving-toeplitz-positroids-formalization/blob/main/paper/positive_consecutive_minor_interpolation_and_paving_toeplitz_positroids.pdf}{GitHub manuscript}.
 
 \bibitem{FallatJohnson}
 S.~M. Fallat and C.~R. Johnson,
@@ -1072,6 +1076,14 @@ K.~Rietsch,
 \emph{Totally positive Toeplitz matrices and quantum cohomology of partial flag varieties},
 J. Amer. Math. Soc. \textbf{16} (2003), no.~2, 363--392;
 erratum, J. Amer. Math. Soc. \textbf{21} (2008), no.~2, 611--614.
+
+\bibitem{RietschSurvey}
+K.~Rietsch,
+\emph{Totally positive Toeplitz matrices: classical and modern},
+in \emph{Proceedings of the International Congress of Mathematicians 2026},
+Vol.~3, invited lectures, 2026,
+\href{https://doi.org/10.1137/25M1806727}{doi:10.1137/25M1806727};
+arXiv:2509.25163v3.
 
 \end{thebibliography}
 

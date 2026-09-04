@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+message: >-
+  If you use this formalization, please cite the accompanying manuscript.
+title: Formalization of Truncations, Circuit Layers, and Quantum Boundary Charts for Totally Nonnegative Toeplitz Positroids
+type: software
+authors:
+  - family-names: Cheng
+    given-names: Yaoyu
+  - family-names: Gu
+    given-names: Sixuan
+  - family-names: Qi
+    given-names: Wei
+version: 0.2.0
+date-released: 2026-09-04
+repository-code: https://github.com/Cheng-Yaoyu/toeplitz-positroids-truncations-boundary-charts-formalization
+preferred-citation:
+  type: article
+  title: Truncations, Circuit Layers, and Quantum Boundary Charts for Totally Nonnegative Toeplitz Positroids
+  authors:
+    - family-names: Cheng
+      given-names: Yaoyu
+    - family-names: Gu
+      given-names: Sixuan
+    - family-names: Qi
+      given-names: Wei
+  year: 2026
+  url: https://github.com/Cheng-Yaoyu/toeplitz-positroids-truncations-boundary-charts-formalization/blob/main/paper/toeplitz_positroids_truncations_boundary_charts.pdf
